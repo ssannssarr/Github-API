@@ -1,4 +1,5 @@
 import func as gh
+import subprocess as sp
 
 from rich.console import Console
 from rich.panel import Panel
