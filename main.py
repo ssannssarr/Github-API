@@ -17,22 +17,23 @@ except ModuleNotFoundError:
         print("passing readline")
     
 
-
+# Text section
 WELCOME_TEXT = """
 Welcome to SaanS Github query terminal app.
 For command list type "/help"
 ^_^
 """
 HELP_TEXT = """
-|---------------------------------------------------------------|
-| /qry : This cmd will open a user detail grabbing function     |
-| /help    : To open this help text                             |
-| /exit    : To exit this py app                                |
-|---------------------------------------------------------------|
+|----------------------------------------------------------|
+| /qry   : This will fetch some info of the given username |
+| /repo  : This fetches all repo list of given username    | 
+| /help  : To open this help text                          |
+| /exit  : To exit this py app                             |
+|----------------------------------------------------------|
 """
 
 print(WELCOME_TEXT)
-
+# The main loop 
 usr_in = ""
 try:
     while usr_in != "/exit":
@@ -41,6 +42,8 @@ try:
             print(HELP_TEXT)
         elif usr_in == "/qry":
             gh.usr_info()
+        elif usr_in == "/repo":
+            gh.usr_repo()
         elif usr_in != "/exit":
             print("I think that cmd is not available T.T")
     print("\nGoodbye!!")

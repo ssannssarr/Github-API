@@ -7,7 +7,7 @@ except ModuleNotFoundError:
         print("Module requests is downloading...")
         subprocess.run("python -m pip install requests")
 
-
+# Function that gets every info about the usr
 def usr_info():
     usr_name = input("Enter Username:>> ").strip()
     response = rq.get(
@@ -16,7 +16,7 @@ def usr_info():
     if response.status_code == 200:
         data = response.json()
         GIT = f"""
-This Evry thing about {data.get('name')}
+This is Evry thing about {data.get('name')}
 
 Username : {data.get('login')}
 ID       : {data.get('id')} 
@@ -37,5 +37,24 @@ Bio      :
     else:
         print("UNKNOWN ERROR!!")
         
+def usr_repo():
+    usr = input("Enter the Username:>>").strip()
+    repos = rq.get(
+        f"https://api.github.com/users/{usr}/repos"
+    )
+    
+    if repos.status_code == 200:
+        repo = repos.json()
+        print(f"\nRepos of {usr}")
+        for r in repo:
+            print(f"- {r.get('name')}")
+    elif repos.status_code == 404:
+        print(f"The user {usr} not found\nCheck the name correctly.")
+    else:
+        print("Couldn't Fetch Info try again later.")
+
+
+
+
 if __name__ == "__main__":
- usr_info()
+ usr_info(),usr_repo()
