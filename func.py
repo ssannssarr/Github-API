@@ -5,7 +5,7 @@ except ModuleNotFoundError:
     permission = input("I think the request module is not download\nWill you downlaod(y/n):>").strip().lower()
     if permission == "y":
         print("Module requests is downloading...")
-        subproccess.run("python -m pip install requests")
+        subprocess.run("python -m pip install requests")
 
 
 def usr_info():
