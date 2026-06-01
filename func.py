@@ -16,9 +16,12 @@ except ModuleNotFoundError:
         print("Module requests is downloading...")
         sp.run("python -m pip install requests")
 
+console = Console()
+
 # Function that gets every info about the usr
 def usr_info():
-    usr_name = input("Enter Username:>> ").strip()
+    console.print("[cyan]Enter Username:[/cyan]")
+    usr_name = input(">> ").strip()
     response = rq.get(
         f"https://api.github.com/users/{usr_name}"
     )
@@ -27,43 +30,44 @@ def usr_info():
         GIT = f"""
 This is Evry thing about {data.get('name')}
 
-Username : {data.get('login')}
-ID       : {data.get('id')} 
-Name     : {data.get('name')}
-Email    : {data.get('email')}
-Followers: {data.get('followers')}
-Following: {data.get('following')}
-Created  : {data.get('created_at')}
-Twitter  : {data.get('twitter_username')}
-Repos    : {data.get('public_repos')}
-Gists    : {data.get('public_gists')}
-Bio      : 
+[green]Username[/green] : {data.get('login')}
+[green]ID[/green]       : {data.get('id')} 
+[green]Name[/green]     : {data.get('name')}
+[green]Email[/green]    : {data.get('email')}
+[green]Followers[/green]: {data.get('followers')}
+[green]Following[/green]: {data.get('following')}
+[green]Created[/green]  : {data.get('created_at')}
+[green]Twitter[/green]  : {data.get('twitter_username')}
+[green]Repos[/green]    : {data.get('public_repos')}
+[green]Gists[/green]    : {data.get('public_gists')}
+[green]Bio[/green]      : 
 {data.get('bio')}
 """
-        print(GIT)
+        console.print(Panel(GIT, border_style="cyan"))
     elif response.status_code == 404:
-        print("User not found!!")
+        console.print("[red]User not found!![/red]")
     else:
-        print("UNKNOWN ERROR!!")
+        console.print("[yellow]UNKNOWN ERROR!![/yellow]")
         
 def usr_repo():
-    usr = input("Enter the Username:>>").strip()
+    console.print("[cyan]Enter the Username[/cyan]:")
+    usr = input(">>").strip()
     repos = rq.get(
         f"https://api.github.com/users/{usr}/repos"
     )
     
     if repos.status_code == 200:
         repo = repos.json()
-        print(f"\nRepos of {usr}")
+        console.print(f"\nRepos of [cyan]{usr}[/cyan]")
         for r in repo:
-            print(f"- {r.get('name')}")
+            console.print(f"[cyan]-[/cyan] [yellow]{r.get('name')}[/yellow]")
     elif repos.status_code == 404:
-        print(f"The user {usr} not found\nCheck the name correctly.")
+        console.print(f"[red]The user {usr} not found\nCheck the name correctly.[/red]")
     else:
-        print("Couldn't Fetch Info try again later.")
+        print("[yellow]Couldn't Fetch Info try again later.[/yellow]")
 
 
 
 
 if __name__ == "__main__":
- usr_info(),usr_repo()
+ usr_info()
