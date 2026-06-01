@@ -1,10 +1,20 @@
 import func as gh
-import subprocess
+try:
+    import subprocess
+except ModuleNotFoundError:
+    print("Module subprocess not found its for radline downloading")
+    pass
+
 try: 
     import readline
 except ModuleNotFoundError:
-    print("readline library is downloading...")
-    subprocess.run("python -m pip install readline")
+    permission = input("Do you want to Download readline (in windows it will not work)\n(y/n):>>").strip().lower()
+    if permission == "y":
+        print("readline library is downloading...")
+        subprocess.run("python -m pip install readline")
+    else:
+        pass
+        print("passing readline")
     
 
 

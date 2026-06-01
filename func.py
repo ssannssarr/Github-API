@@ -1,4 +1,12 @@
-import requests as rq 
+import subprocess
+try:
+    import requests as rq
+except ModuleNotFoundError:
+    permission = input("I think the request module is not download\nWill you downlaod(y/n):>").strip().lower()
+    if permission == "y":
+        print("Module requests is downloading...")
+        subproccess.run("python -m pip install requests")
+
 
 def usr_info():
     usr_name = input("Enter Username:>> ").strip()
