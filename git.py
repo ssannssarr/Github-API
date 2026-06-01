@@ -1,29 +1,39 @@
-import requests as rq
+import git_func as gh
+import subprocess
+try: 
+    import readline
+except ModuleNotFoundError:
+    print("readline library is downloading...")
+    subprocess.run("python -m pip install readline")
+    
 
-usr_name = input("Enter Username : ").strip()
 
-response = rq.get(
-	f"https://api.github.com/users/{usr_name}"
-)
-
-if response.status_code == 200:
-    data = response.json()
-    GIT = f"""
-This Evry thing about {data.get('name')}
-
-Username : {data.get('login')}
-ID       : {data.get('id')} 
-Name     : {data.get('name')}
-Email    : {data.get('email')}
-Followers: {data.get('followers')}
-Following: {data.get('following')}
-Created  : {data.get('created_at')}
-Twitter  : {data.get('twitter_username')}
-Repos    : {data.get('public_repos')}
-Gists    : {data.get('public_gists')}
-Bio      : 
-{data.get('bio')}
+WELCOME_TEXT = """
+Welcome to SaanS Github query terminal app.
+For command list type "/help"
+^_^
 """
-    print(GIT)
-else:
-    print("Retry!!")
+HELP_TEXT = """
++---------------------------------------------------------------+
+| /usr_qry : This cmd will open a user detail grabbing function |
+| /help    : To open this help text                             |
+| /exit    : To exit this py app                                |
++---------------------------------------------------------------+ 
+"""
+
+print(WELCOME_TEXT)
+
+usr_in = ""
+try:
+    while usr_in != "/exit":
+        usr_in = input(">> ").strip().lower()
+        if usr_in == "/help":
+            print(HELP_TEXT)
+        elif usr_in == "/usr_qry":
+            gh.usr_info()
+        elif usr_in != "/exit":
+            print("I think that cmd is not available T.T")
+    print("\nGoodbye!!")
+except KeyboardInterrupt:
+    print("\nGoodbye!!")
+        

@@ -1,7 +1,7 @@
 import requests as rq 
 
 def usr_info():
-    usr_name = input("Enter Username: ").strip()
+    usr_name = input("Enter Username:>> ").strip()
     response = rq.get(
         f"https://api.github.com/users/{usr_name}"
     )
@@ -23,6 +23,7 @@ Gists    : {data.get('public_gists')}
 Bio      : 
 {data.get('bio')}
 """
+        print(GIT)
     elif response.status_code == 404:
         print("User not found!!")
     else:
