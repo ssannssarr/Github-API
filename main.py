@@ -1,4 +1,4 @@
-import git_func as gh
+import func as gh
 import subprocess
 try: 
     import readline
@@ -15,7 +15,7 @@ For command list type "/help"
 """
 HELP_TEXT = """
 |---------------------------------------------------------------|
-| /qry : This cmd will open a user detail grabbing function |
+| /qry : This cmd will open a user detail grabbing function     |
 | /help    : To open this help text                             |
 | /exit    : To exit this py app                                |
 |---------------------------------------------------------------|
