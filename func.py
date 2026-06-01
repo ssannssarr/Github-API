@@ -1,11 +1,20 @@
-import subprocess
+import subprocess as sp
+try:
+    from rich.console import Console
+    from rich.panel import Panel
+    from rich.table import Table
+except ModuleNotFoundError:
+    permission = input("\nWill you download rich?(y/n):> ").strip().lower()
+    if permission == "y":
+        print("Downloading Rich Module...")
+        sp.run("python -m pip install rich")
 try:
     import requests as rq
 except ModuleNotFoundError:
     permission = input("I think the request module is not download\nWill you downlaod(y/n):>").strip().lower()
     if permission == "y":
         print("Module requests is downloading...")
-        subprocess.run("python -m pip install requests")
+        sp.run("python -m pip install requests")
 
 # Function that gets every info about the usr
 def usr_info():

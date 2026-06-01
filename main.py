@@ -1,4 +1,15 @@
 import func as gh
+
+try:
+    from rich.console import Console
+    from rich.panel import Panel
+    from rich.table import Table
+except ModuleNotFoundError:
+    permission = input("\nWill you download rich?(y/n):> ").strip().lower()
+    if permission == "y":
+        print("Downloading Rich Module...")
+        sp.run("python -m pip install rich")
+
 try:
     import subprocess
 except ModuleNotFoundError:
@@ -19,8 +30,8 @@ except ModuleNotFoundError:
 
 # Text section
 WELCOME_TEXT = """
-Welcome to SaanS Github query terminal app.
-For command list type "/help"
+[bold green]Welcome to SaanS Github query terminal app.[/bold green]
+For command list type [cyan]/help[/cyan]
 ^_^
 """
 HELP_TEXT = """
@@ -39,7 +50,7 @@ try:
     while usr_in != "/exit":
         usr_in = input(">> ").strip().lower()
         if usr_in == "/help":
-            print(HELP_TEXT)
+            Console.print(Panel(HELP_TEXT, border_style="cyan"))
         elif usr_in == "/qry":
             gh.usr_info()
         elif usr_in == "/repo":
