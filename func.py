@@ -9,7 +9,7 @@ The required modules are not installed
 Install them by:
 "pip install -r requirements.txt"
 """)
-exit()
+    exit()
 
 console = Console()
 
