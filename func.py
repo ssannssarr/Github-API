@@ -1,21 +1,25 @@
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
+from prompt_toolkit import prompt
 
 import requests as rq
 console = Console()
 
+def pnl(content):
+    console.print(Panel(content, border_style="cyan"))
+
 # Function that gets every info about the usr
 def usr_info():
-    console.print("[cyan]Enter Username:[/cyan]")
-    usr_name = input(">> ").strip()
+    pnl("[green]Enter Username:[/green]")
+    usr_name = input("[qry]>> ").strip()
     response = rq.get(
         f"https://api.github.com/users/{usr_name}"
     )
     if response.status_code == 200:
         data = response.json()
         GIT = f"""
-This is Evry thing about {data.get('name')}
+This is Evry thing about [cyan]{data.get('name')}:[/cyan]
 
 [green]Username[/green] : {data.get('login')}
 [green]ID[/green]       : {data.get('id')} 
@@ -30,28 +34,28 @@ This is Evry thing about {data.get('name')}
 [green]Bio[/green]      : 
 {data.get('bio')}
 """
-        console.print(Panel(GIT, border_style="cyan"))
+        pnl(GIT)
     elif response.status_code == 404:
-        console.print("[red]User not found!![/red]")
+        pnl("[red]User not found!![/red]")
     else:
-        console.print("[yellow]UNKNOWN ERROR!![/yellow]")
+        pnl("[yellow]UNKNOWN ERROR!![/yellow]")
         
 def usr_repo():
-    console.print("[cyan]Enter the Username[/cyan]:")
-    usr = input(">>").strip()
+    pnl("[cyan]Enter the Username[/cyan]:")
+    usr = input("[repo]>> ").strip()
     repos = rq.get(
         f"https://api.github.com/users/{usr}/repos"
     )
     
     if repos.status_code == 200:
         repo = repos.json()
-        console.print(f"\nRepos of [cyan]{usr}[/cyan]")
+        pnl(f"\nRepos of [cyan]{usr}[/cyan]")
         for r in repo:
-            console.print(f"[cyan]-[/cyan] [yellow]{r.get('name')}[/yellow]")
+            pnl(f"[cyan]-[/cyan] [yellow]{r.get('name')}[/yellow]")
     elif repos.status_code == 404:
-        console.print(f"[red]The user {usr} not found\nCheck the name correctly.[/red]")
+        pnl(f"[red]The user {usr} not found\nCheck the name correctly.[/red]")
     else:
-        print("[yellow]Couldn't Fetch Info try again later.[/yellow]")
+        pnl("[yellow]Couldn't Fetch Info try again later.[/yellow]")
 
 
 

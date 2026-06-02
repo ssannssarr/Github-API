@@ -26,13 +26,14 @@ For command list type [cyan]/help[/cyan]
 ^_^
 """
 HELP_TEXT = """
+[bold green]Github API Commands List[/bold green]
+
 [green]/qry[/green]   -> This will fetch some info of the given username 
 [green]/repo[/green]  -> This fetches all repo list of given username    
 [green]/help[/green]  -> To open this help text                          
 [green]/exit[/green]  -> To exit this py app                             
 """
-
-console.print(Panel(WELCOME_TEXT, border_style="cyan"))
+gh.pnl(WELCOME_TEXT)
 
 # The main loop 
 usr_in = ""
@@ -40,13 +41,13 @@ try:
     while usr_in != "/exit":
         usr_in = input(">> ").strip().lower()
         if usr_in == "/help":
-            console.print(Panel(HELP_TEXT, border_style="cyan"))
+            gh.pnl(HELP_TEXT)
         elif usr_in == "/qry":
             gh.usr_info()
         elif usr_in == "/repo":
             gh.usr_repo()
         elif usr_in != "/exit":
-            print("I think that cmd is not available T.T")
+            gh.pnl("I think that cmd is not available T.T")
     console.print("[yellow]\nGoodbye!![/yellow]")
 except KeyboardInterrupt:
     console.print("[yellow]\nGoodbye!![/yellow]")
