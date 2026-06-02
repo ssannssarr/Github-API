@@ -1,11 +1,19 @@
-from rich.console import Console
-from rich.panel import Panel
-from rich.table import Table
-from prompt_toolkit import prompt
+try:
+    from rich.console import Console
+    from rich.panel import Panel
+    from rich.table import Table
+    import requests as rq
+except ModuleNotFoundError:
+    print("""
+The required modules are not installed 
+Install them by:
+"pip install -r requirements.txt"
+""")
+exit()
 
-import requests as rq
 console = Console()
 
+# Just Panel shortcut (I love shortcuts)
 def pnl(content):
     console.print(Panel(content, border_style="cyan"))
 
@@ -39,7 +47,8 @@ This is Evry thing about [cyan]{data.get('name')}:[/cyan]
         pnl("[red]User not found!![/red]")
     else:
         pnl("[yellow]UNKNOWN ERROR!![/yellow]")
-        
+
+# Fetches the list of all the repos the given user have
 def usr_repo():
     pnl("[cyan]Enter the Username[/cyan]:")
     usr = input("[repo]>> ").strip()
@@ -49,9 +58,9 @@ def usr_repo():
     
     if repos.status_code == 200:
         repo = repos.json()
-        pnl(f"\nRepos of [cyan]{usr}[/cyan]")
+        pnl(f"Repos of [cyan]{usr}[/cyan]")
         for r in repo:
-            pnl(f"[cyan]-[/cyan] [yellow]{r.get('name')}[/yellow]")
+            console.print(f"[cyan]-[/cyan] [yellow]{r.get('name')}[/yellow]")
     elif repos.status_code == 404:
         pnl(f"[red]The user {usr} not found\nCheck the name correctly.[/red]")
     else:
