@@ -1,15 +1,7 @@
-try:
-    from rich.console import Console
-    from rich.panel import Panel
-    from rich.table import Table
-    import requests as rq
-except ModuleNotFoundError:
-    print("""
-The required modules are not installed 
-Install them by:
-"pip install -r requirements.txt"
-""")
-    exit()
+from rich.console import Console
+from rich.panel import Panel
+from rich.table import Table
+import requests as rq
 
 console = Console()
 

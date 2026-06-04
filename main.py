@@ -1,7 +1,7 @@
 import func as gh
 import subprocess as sp
 
-from rich.console import Console
+from rich import print
 from rich.panel import Panel
 from rich.table import Table
 
@@ -17,7 +17,7 @@ except ModuleNotFoundError:
         print("passing readline")
     
 
-console = Console()
+#console = Console()
 
 # Text section
 WELCOME_TEXT = """
